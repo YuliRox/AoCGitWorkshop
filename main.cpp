@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
-#include <String>
+//#include <String>
 
 using namespace std;
 
@@ -10,12 +10,14 @@ int main(int argc, char *argv[])
 {
     cout << "AoCGitWorkshop 2022 day 1 part 1\n";
 
-    vector<int> numbers;
     vector<int> elves;
+    int calsPerElv = 0;
 
     while (cin.peek() != EOF)
     {
-        String inStr = String(10);
+//        String inStr = String(10);
+//        cin >> inStr;
+//        cout << inStr;
         int parsedNumber = 0;
         cin >> parsedNumber;
 
@@ -31,22 +33,31 @@ int main(int argc, char *argv[])
             continue;
         }
 
-        numbers.push_back(parsedNumber);
-    }
-
-    cout << "Read " << numbers.size() << " numbers!\n";
-
-    int cntr = 0;
-
-    for (int i = 0; i < numbers.size() - 1; i++)
-    {
-        if (numbers[i] < numbers[i + 1])
+        if (parsedNumber != 0)
         {
-            cntr++;
+            calsPerElv += parsedNumber;
+        }
+        else
+        {
+            elves.push_back(calsPerElv);
         }
     }
 
-    cout << "the solution for part one is " << cntr << "\n";
+    cout << "Number of Elves in the expedition " << elves.size() << ".\n";
+
+    int maxCals = 0;
+    int powerElvesNumber = 0;
+
+    for (int i = 0; i < elves.size() - 1; i++)
+    {
+        if (elves[i] > maxCals)
+        {
+            maxCals = elves[i];
+            powerElvesNumber = i;
+        }
+    }
+
+    cout << "the " << powerElvesNumber << " carryies " << maxCals << " Calories.\n";
 
     return 0;
 }
