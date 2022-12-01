@@ -10,7 +10,7 @@
             "request": "launch",
             "name": "Launch",
             "program": "${workspaceFolder}/out/main",
-            "args": ["< ${workspaceFolder}/input2021_1Ben"],
+            "args": ["< ${workspaceFolder}/input2021_2Ben"],
             "cwd": "${workspaceFolder}"
         }
     ]

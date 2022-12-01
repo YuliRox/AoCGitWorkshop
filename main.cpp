@@ -2,15 +2,20 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <String>
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
+    cout << "AoCGitWorkshop 2022 day 1 part 1\n";
+
     vector<int> numbers;
+    vector<int> elves;
 
     while (cin.peek() != EOF)
     {
+        String inStr = String(10);
         int parsedNumber = 0;
         cin >> parsedNumber;
 
@@ -30,7 +35,6 @@ int main(int argc, char *argv[])
     }
 
     cout << "Read " << numbers.size() << " numbers!\n";
-    cout << "AoCGitWorkshop 2021 day 1 part 1\n";
 
     int cntr = 0;
 
@@ -43,20 +47,6 @@ int main(int argc, char *argv[])
     }
 
     cout << "the solution for part one is " << cntr << "\n";
-
-    cout << "AoCGitWorkshop 2021 day 1 part 2\n";
-
-    cntr = 0;
-
-    for (int i = 0; i < numbers.size() - 3; i++)
-    {
-        if (numbers[i] + numbers[i + 1] + numbers[i + 2] < numbers[i + 1] + numbers[i + 2] + numbers[i + 3])
-        {
-            cntr++;
-        }
-    }
-
-    cout << "the solution for part two is " << cntr << "\n";
 
     return 0;
 }
