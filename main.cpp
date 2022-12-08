@@ -5,110 +5,66 @@
 
 using namespace std;
 
-int score(char elve, char me)
-{
-    int shape;
-    const int win = 6;
-    const int draw = 3;
-    const int loose = 0;
-
-    switch (elve)
-    {
-    case 'A': // Rock
-        shape = 1;
-        switch (me)
-        {
-        case 'A':
-            return shape + draw;
-        case 'B':
-            return shape + win;
-        case 'C':
-            return shape + loose;
-        }
-    case 'B':  // Paper
-        shape = 2;
-        switch (me)
-        {
-        case 'A':
-            return shape + loose;
-        case 'B':
-            return shape + draw;
-        case 'C':
-            return shape + win;
-        }
-    case 'C': // Scissors
-        shape = 3;
-        switch (me)
-        {
-        case 'A':
-            return shape + win;
-        case 'B':
-            return shape + loose;
-        case 'C':
-            return shape + draw;
-        }
-    default:
-        int e = elve;
-        int m = me;
-        cout << "unreckognised shape! " << elve << e << me << m << "\n";
-        return -1;
-    }
-}
-
 int main(int argc, char *argv[])
 {
-    cout << "AoCGitWorkshop 2022 day 2 part 1\n";
+    cout << "AoCGitWorkshop 2022 day 3 part 1\n";
 
-    char elve, me;
-    char cnvShape[] = {'A', 'B', 'C', 'A', 'B', 'C'};
-
-    int readLines = 0;
-    long posScores[] = {0, 0, 0};
+    int totalPriotity = 0; //
+    int cntRuck = 1;
 
     while (cin.peek() != EOF)
     {
-        char c = cin.get();
+        vector<char> itemsInR;
 
-        switch (c)
+        // read on line, aka contend of one rucksack
+        int cntItems = 0;
+        while (cin.peek() != '\n' ) //10 = EOL
         {
-            case 'A':
-            case 'B':
-            case 'C':
-                elve = c;
-                break;
-            case 'X':
-            case 'Y':
-            case 'Z':
-                me = c;
-                posScores['X' - 'X'] += score(elve, cnvShape[me - 'X' + 3]);
-                posScores['Y' - 'X'] += score(elve, cnvShape[me - 'Y' + 3]);
-                posScores['Z' - 'X'] += score(elve, cnvShape[me - 'Z' + 3]);
-                readLines++;
-                break;
+            itemsInR.push_back( cin.get() );
+            cntItems++;
         }
-    }
+        // discard the LF, witch stoped the Loop
+        cin.get();
 
-    cout << "\n*** Answer part 1 ***\n\n";
-    cout << "Lines read: " << readLines <<"\n";
-    cout << "your options are:\n";
-    cout << "Option | X        | Y        | Z        | Score\n";
-    cout << "    #1 | Rock     | Paper    | Scissors | " << posScores[0] << "\n";
-    cout << "    #2 | Paper    | Scissors | Rock     | " << posScores[1] << "\n";
-    cout << "    #3 | Scissors | Rock     | Paper    | " << posScores[2] << "\n";
+        cout << "\n# " << cntRuck++ << " | " << cntItems << " Items |";
 
-    cout << "\nThe highest scoring option is option ";
-    int maxScore = 0;
-    int bestOption = 0;
-    for (int i = 0; i < sizeof(posScores) / sizeof(posScores[0]) ; i++)
-    {
-        if ( posScores[i] > maxScore)
+        // walk first half of the Vector
+        for (int i = 0; i < cntItems / 2; i++)
         {
-            maxScore = posScores[i];
-            bestOption = i + 1;
+            // walk second half of the Vector
+            for (int j = cntItems / 2; j < cntItems; j++)
+            {
+                // find match
+                if (itemsInR[i] == itemsInR[j]){
+
+                    cout << " Item " << itemsInR[i];
+                    
+                    // summ up prioritys
+                    int prio = 0;
+                    if ( itemsInR[i] >= 'a' - 1 && itemsInR[i] <= 'z' )
+                    {
+                        // On lower case asign Prioritys from 1 to 26
+                        prio = itemsInR[i] - 'a' + 1;
+                    }
+                    if ( itemsInR[i] >= 'A' - 1 && itemsInR[i] <= 'Z' )
+                    {
+                        // On uper case asign Prioritys from 27 to 52
+                        prio = itemsInR[i] - 'A' + 1;
+                    }
+
+                    cout << " (" << prio << ") |";
+
+                    totalPriotity += prio;
+//                    goto heureka;
+                }
+            }
         }
+//        heureka:
     }
-    cout << maxScore << ".\n\n";
     
+    cout << "\n\n***** Answer part 1 *****\n";
+
+    cout << "\nThe total priority is " << totalPriotity <<"\n";
 
 //    cout << "\n**** Answer part 2 ****\n";
 
