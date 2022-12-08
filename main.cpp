@@ -28,11 +28,13 @@ int main(int argc, char *argv[])
 
         cout << "\n# " << cntRuck++ << " | " << cntItems << " Items |";
 
+        bool heureka = false;
+
         // walk first half of the Vector
-        for (int i = 0; i < cntItems / 2; i++)
+        for (int i = 0 ; i < cntItems / 2 && ! heureka ; i++)
         {
             // walk second half of the Vector
-            for (int j = cntItems / 2; j < cntItems; j++)
+            for (int j = cntItems / 2 ; j < cntItems && ! heureka ; j++)
             {
                 // find match
                 if (itemsInR[i] == itemsInR[j]){
@@ -49,17 +51,16 @@ int main(int argc, char *argv[])
                     if ( itemsInR[i] >= 'A' - 1 && itemsInR[i] <= 'Z' )
                     {
                         // On uper case asign Prioritys from 27 to 52
-                        prio = itemsInR[i] - 'A' + 1;
+                        prio = itemsInR[i] - 'A' + 27;
                     }
 
                     cout << " (" << prio << ") |";
 
                     totalPriotity += prio;
-//                    goto heureka;
+                    heureka = true;
                 }
             }
         }
-//        heureka:
     }
     
     cout << "\n\n***** Answer part 1 *****\n";
